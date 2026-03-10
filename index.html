@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Rishikesh Kumar</title>
 
 <style>
 
+/* BASIC PAGE STYLE */
 body{
 font-family:Arial;
 margin:0;
 background:#f4f4f4;
 }
 
+/* NAVIGATION BAR */
+nav{
+background:#333;
+padding:15px;
+text-align:center;
+}
+
+nav a{
+color:white;
+margin:15px;
+text-decoration:none;
+font-size:18px;
+}
+
+/* HEADER */
 header{
 background:#222;
 color:white;
@@ -18,6 +35,7 @@ padding:40px;
 text-align:center;
 }
 
+/* SECTION STYLE */
 section{
 padding:40px;
 margin:20px;
@@ -25,6 +43,27 @@ background:white;
 border-radius:8px;
 }
 
+/* SKILL LIST */
+ul{
+line-height:2;
+}
+
+/* PROJECT CARD */
+.project{
+margin-bottom:20px;
+}
+
+/* RESUME BUTTON */
+.btn{
+display:inline-block;
+padding:10px 20px;
+background:#0077ff;
+color:white;
+text-decoration:none;
+border-radius:5px;
+}
+
+/* FOOTER */
 footer{
 background:#222;
 color:white;
@@ -38,31 +77,153 @@ padding:20px;
 
 <body>
 
+<!-- ================= NAVIGATION BAR (ADDED) ================= -->
+
+<nav>
+
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+<a href="#resume">Resume</a>
+<a href="#contact">Contact</a>
+
+</nav>
+
+
+<!-- ================= HEADER ================= -->
+
 <header>
+
 <h1>Rishikesh Kumar</h1>
+
 <p>Remote Sensing | Hydrology | Machine Learning</p>
+
 </header>
 
-<section>
+
+<!-- ================= ABOUT SECTION ================= -->
+
+<section id="about">
+
 <h2>About Me</h2>
+
 <p>
-MTech in Remote Sensing from IIT Bombay. I work on satellite data analysis,
-hydrological modelling and machine learning.
+
+I am an MTech graduate in Remote Sensing from IIT Bombay with a background in Civil Engineering.
+My work focuses on satellite data analysis, hydrological modelling and machine learning.
+
 </p>
+
 </section>
 
-<section>
+
+<!-- ================= SKILLS SECTION (ADDED) ================= -->
+
+<section id="skills">
+
+<h2>Skills</h2>
+
+<ul>
+
+<li>Remote Sensing</li>
+<li>GIS (QGIS / ArcGIS)</li>
+<li>Hydrological Modelling (HYSIM)</li>
+<li>Python Programming</li>
+<li>Machine Learning</li>
+<li>Google Earth Engine</li>
+
+</ul>
+
+</section>
+
+
+<!-- ================= PROJECTS SECTION (IMPROVED) ================= -->
+
+<section id="projects">
+
 <h2>Projects</h2>
-<p>Hydrological modelling using HYSIM</p>
-<p>Solar power prediction using CNN</p>
-<p>Forest fire risk mapping using GIS</p>
+
+<div class="project">
+
+<h3>Hydrological Modelling Using HYSIM</h3>
+
+<p>
+
+Evaluation of satellite precipitation products including IMERG, MSWEP and
+PERSIANN across Indian river basins.
+
+</p>
+
+</div>
+
+
+<div class="project">
+
+<h3>Solar Power Prediction Using CNN</h3>
+
+<p>
+
+Developed deep learning models to forecast solar energy production
+using satellite imagery.
+
+</p>
+
+</div>
+
+
+<div class="project">
+
+<h3>Forest Fire Risk Mapping</h3>
+
+<p>
+
+Mapped forest fire prone areas in Odisha using GIS and spatial analysis.
+
+</p>
+
+</div>
+
 </section>
 
-<section>
+
+<!-- ================= RESUME SECTION (ADDED) ================= -->
+
+<section id="resume">
+
+<h2>Resume</h2>
+
+<p>You can download my CV below.</p>
+
+<a class="btn" href="resume.pdf" download>Download Resume</a>
+
+</section>
+
+
+<!-- ================= CONTACT SECTION ================= -->
+
+<section id="contact">
+
 <h2>Contact</h2>
+
 <p>Email: civilrishikesh20@gmail.com</p>
+
+<p>LinkedIn: linkedin.com</p>
+
 </section>
 
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<p>© 2026 Rishikesh Kumar</p>
+
+</footer>
+
+
+</body>
+
+</html>
 <footer>
 <p>© 2026 Rishikesh Kumar</p>
 </footer>
