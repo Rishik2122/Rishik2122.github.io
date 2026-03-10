@@ -1,261 +1,726 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rishikesh Kumar | Portfolio</title>
 
-<title>Rishikesh Kumar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
 
-<style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+      background: linear-gradient(-45deg, #081c24, #0f3443, #1b2735, #090a0f);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+    }
 
-/* BASIC PAGE STYLE */
-body{
-font-family:Arial;
-margin:0;
-background:#f4f4f4;
-}
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-/* NAVIGATION BAR */
-nav{
-background:#333;
-padding:15px;
-text-align:center;
-}
+    #bgCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+    }
 
-nav a{
-color:white;
-margin:15px;
-text-decoration:none;
-font-size:18px;
-}
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
 
-/* HEADER */
-header{
-background:#222;
-color:white;
-padding:40px;
-text-align:center;
-}
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
 
-/* SECTION STYLE */
-section{
-padding:40px;
-margin:20px;
-background:white;
-border-radius:8px;
-}
+    nav a:hover {
+      color: #4fdcff;
+    }
 
-/* SKILL LIST */
-ul{
-line-height:2;
-}
+    header {
+      min-height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
 
-/* PROJECT CARD */
-.project{
-margin-bottom:20px;
-}
+    .hero {
+      max-width: 900px;
+    }
 
-/* RESUME BUTTON */
-.btn{
-display:inline-block;
-padding:10px 20px;
-background:#0077ff;
-color:white;
-text-decoration:none;
-border-radius:5px;
-}
+    .hero img {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,0.2);
+      box-shadow: 0 0 30px rgba(79,220,255,0.35);
+      margin-bottom: 24px;
+      transition: 0.4s;
+    }
 
-/* FOOTER */
-footer{
-background:#222;
-color:white;
-text-align:center;
-padding:20px;
-}
+    .hero img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(79,220,255,0.55);
+    }
 
-</style>
+    .hero h1 {
+      font-size: 3.2rem;
+      margin-bottom: 12px;
+    }
 
+    .typing {
+      font-size: 1.2rem;
+      color: #cfefff;
+      min-height: 32px;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: #e9f6fb;
+      line-height: 1.8;
+      font-size: 1.05rem;
+      max-width: 760px;
+      margin: 0 auto 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: #00a8e8;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0089bd;
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-3px);
+    }
+
+    section {
+      width: 92%;
+      max-width: 1150px;
+      margin: 30px auto;
+      padding: 36px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 0.8s ease;
+    }
+
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #4fdcff;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .about-grid p {
+      line-height: 1.9;
+      color: #f1f8fb;
+    }
+
+    .about-side {
+      text-align: center;
+    }
+
+    .about-side img {
+      width: 240px;
+      max-width: 100%;
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 22px;
+      transition: 0.3s;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.22);
+    }
+
+    .skill-card h3 {
+      margin-bottom: 14px;
+      color: #fff;
+    }
+
+    .skill-card ul {
+      padding-left: 20px;
+      line-height: 1.9;
+      color: #e8f7ff;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+
+    .project {
+      background: rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 24px;
+      transition: 0.35s;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(79,220,255,0.12), transparent);
+      opacity: 0;
+      transition: 0.3s;
+    }
+
+    .project:hover::before {
+      opacity: 1;
+    }
+
+    .project:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.24);
+    }
+
+    .project h3 {
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .project p {
+      line-height: 1.7;
+      color: #eef9ff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .doc-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .contact p, .contact a {
+      color: #eef9ff;
+      line-height: 2;
+      text-decoration: none;
+    }
+
+    .contact a:hover {
+      color: #4fdcff;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 24px;
+      text-align: center;
+      background: rgba(0,0,0,0.35);
+      color: #d9edf5;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      width: 92%;
+      max-width: 1100px;
+      height: 88vh;
+      background: #0d1117;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .modal iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      font-size: 32px;
+      color: white;
+      cursor: pointer;
+      z-index: 20;
+      font-weight: bold;
+    }
+
+    .watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 42px;
+      color: rgba(255,255,255,0.08);
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 10;
+      font-weight: bold;
+    }
+
+    .small-note {
+      margin-top: 12px;
+      color: #cfefff;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      h2 {
+        font-size: 1.7rem;
+      }
+
+      section {
+        padding: 26px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        gap: 12px;
+      }
+
+      nav a {
+        font-size: 15px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .typing {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- ================= NAVIGATION BAR (ADDED) ================= -->
-
-<nav>
-
-<a href="#about">About</a>
-<a href="#skills">Skills</a>
-<a href="#projects">Projects</a>
-<a href="#resume">Resume</a>
-<a href="#contact">Contact</a>
-
-</nav>
-
-
-<!-- ================= HEADER ================= -->
-
-<header>
-
-<h1>Rishikesh Kumar</h1>
-
-<p>Civil Engineer | Remote Sensing Specialist | Hydrologist | Machine Learning</p>
-
-</header>
-
-
-<!-- ================= ABOUT SECTION ================= -->
-
-<section id="about">
-
-<h2>About Me</h2>
-<div class="about-container">
-<div class="about-text">
-
-<p>
-
-I'm Rishikesh Kumar, a Civil Engineer and Remote Sensing professional. I completed my B.Tech in Civil Engineering from Central University of Haryana and my Master’s in <b>Remote Sensing</b> from <b>Indian Institute of Technology Bombay.</b>
-I specialize in Remote Sensing, GIS, and geospatial data analysis, with experience in working with satellite data and environmental applications. Currently, I work as a <b>Planning and Billing Engineer</b> at Vishvaraj Environment Limited, where I contribute to WTP & STP projects.
-
-I am passionate about using geospatial technologies and engineering solutions to solve real-world environmental and infrastructure challenges.
-
-</p>
-</div>
-
-
-<div class="about-image">
-
-<img src="Pic rishi.jpeg" width="220">
-
-</div>
-
-</div>
-</section>
-
-
-<!-- ================= SKILLS SECTION (ADDED) ================= -->
-
-<section id="skills">
-
-<h2>Skills</h2>
-
-<h3>Civil Engineering</h3>
-
-<ul>
-
-<li>Planning & Billing (Primavera)</li>
-<li>AutoCAD 2D</li>
-<li>Tekla</li>
-
-</ul>
-
-
-<h3>Remote Sensing & GIS</h3>
-
-<ul>
-
-<li>Remote Sensing</li>
-<li>GIS (QGIS / ArcGIS)</li>
-<li>Satellite Data Analysis</li>
-<li>Google Earth Engine</li>
-<li>SNAP, Pix4DMapper, WebODM, Agisoft</li>
-<li>Microsoft Office</li>
-<li>Python, Machine Learning</li>
-
-</ul>
-
-</section>
-
-
-
-
-<!-- ================= PROJECTS SECTION (IMPROVED) ================= -->
-
-<section id="projects">
-
-<h2>Projects</h2>
-
-<div class="project">
-
-<h3>Hydrological Modelling Using HYSIM</h3>
-
-<p>
-
-Evaluation of satellite precipitation products including IMERG, MSWEP and
-PERSIANN across Indian river basins.
-
-</p>
-
-</div>
-
-
-<div class="project">
-
-<h3>Solar Power Prediction Using CNN</h3>
-
-<p>
-
-Developed deep learning models to forecast solar energy production
-using satellite imagery.
-
-</p>
-
-</div>
-
-
-<div class="project">
-
-<h3>Forest Fire Risk Mapping</h3>
-
-<p>
-
-Mapped forest fire prone areas in Odisha using GIS and spatial analysis.
-
-</p>
-
-</div>
-
-</section>
-
-
-<!-- ================= RESUME SECTION (ADDED) ================= -->
-
-<section id="resume">
-
-<h2>Resume</h2>
-
-<p>You can download my CV below.</p>
-
-<a class="btn" href="resume.pdf" download>Download Resume</a>
-
-</section>
-
-
-<!-- ================= CONTACT SECTION ================= -->
-
-<section id="contact">
-
-<h2>Contact</h2>
-
-<p>Email: civilrishikesh20@gmail.com</p>
-
-<p>LinkedIn: linkedin.com</p>
-
-</section>
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-
-<p>© 2026 Rishikesh Kumar</p>
-
-</footer>
-
-
-</body>
-
-</html>
-<footer>
-<p>© 2026 Rishikesh Kumar</p>
-</footer>
-
+  <canvas id="bgCanvas"></canvas>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#documents">Documents</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header>
+    <div class="hero">
+      <img src="Pic rishi.jpeg" alt="Rishikesh Kumar">
+      <h1>Rishikesh Kumar</h1>
+      <div class="typing" id="typing"></div>
+      <p>
+        Civil Engineer and Remote Sensing professional with expertise in GIS,
+        hydrology, geospatial analysis, satellite applications, and engineering solutions
+        for environmental and infrastructure projects.
+      </p>
+      <div class="hero-buttons">
+        <a class="btn btn-primary" href="resume.pdf" download>Download Resume</a>
+        <a class="btn btn-outline" href="#projects">View Projects</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about" class="reveal">
+    <h2>About Me</h2>
+    <div class="about-grid">
+      <div>
+        <p>
+          I'm Rishikesh Kumar, a Civil Engineer and Remote Sensing professional.
+          I completed my B.Tech in Civil Engineering from Central University of Haryana
+          and my Master’s in <b>Remote Sensing</b> from <b>Indian Institute of Technology Bombay</b>.
+        </p>
+        <br>
+        <p>
+          I specialize in Remote Sensing, GIS, hydrology, geospatial data analysis,
+          and satellite-based environmental applications. Currently, I work as a
+          <b>Planning and Billing Engineer</b> at Vishvaraj Environment Limited,
+          contributing to WTP and STP projects.
+        </p>
+        <br>
+        <p>
+          I am passionate about combining engineering knowledge, remote sensing tools,
+          and data-driven techniques to solve real-world environmental and infrastructure challenges.
+        </p>
+      </div>
+      <div class="about-side">
+        <img src="Pic rishi.jpeg" alt="Profile photo">
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="reveal">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Civil Engineering</h3>
+        <ul>
+          <li>Planning & Billing</li>
+          <li>Primavera</li>
+          <li>AutoCAD 2D</li>
+          <li>Tekla</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <h3>Remote Sensing & GIS</h3>
+        <ul>
+          <li>Remote Sensing</li>
+          <li>QGIS / ArcGIS</li>
+          <li>Satellite Data Analysis</li>
+          <li>Google Earth Engine</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <h3>Tools & Technology</h3>
+        <ul>
+          <li>SNAP</li>
+          <li>Pix4DMapper</li>
+          <li>WebODM</li>
+          <li>Agisoft</li>
+          <li>Python</li>
+          <li>Machine Learning</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="reveal">
+    <h2>Projects</h2>
+    <div class="project-grid">
+      <div class="project">
+        <h3>Hydrological Modelling Using HYSIM</h3>
+        <p>
+          Evaluation of satellite precipitation products including IMERG, MSWEP,
+          and PERSIANN across Indian river basins for hydrological assessment.
+        </p>
+      </div>
+
+      <div class="project">
+        <h3>Solar Power Prediction Using CNN</h3>
+        <p>
+          Developed deep learning models to forecast solar energy generation
+          using satellite imagery and environmental parameters.
+        </p>
+      </div>
+
+      <div class="project">
+        <h3>Forest Fire Risk Mapping</h3>
+        <p>
+          Identified forest fire-prone zones in Odisha using GIS-based spatial
+          analysis and environmental risk factor mapping.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="documents" class="reveal">
+    <h2>Documents</h2>
+    <p>
+      Resume can be downloaded. Thesis and project presentation are view-only inside the website.
+    </p>
+
+    <div class="doc-buttons">
+      <a class="btn btn-primary" href="resume.pdf" download>Download Resume</a>
+      <button class="btn btn-outline" onclick="openViewer('thesis.pdf')">View Thesis</button>
+      <button class="btn btn-outline" onclick="openViewer('project-ppt.pdf')">View Project PPT</button>
+    </div>
+
+    <p class="small-note">
+      Note: no website can fully prevent screenshots or downloading if content is viewable.
+      This setup removes easy download access and makes casual copying harder.
+    </p>
+  </section>
+
+  <section id="contact" class="reveal" class="contact">
+    <h2>Contact</h2>
+    <div class="contact">
+      <p>Email: <a href="mailto:civilrishikesh20@gmail.com">civilrishikesh20@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/" target="_blank">linkedin.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Rishikesh Kumar. All rights reserved.</p>
+  </footer>
+
+  <div id="viewerModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeViewer()">&times;</span>
+      <div class="watermark">Rishikesh Kumar | View Only</div>
+      <iframe id="docFrame" src=""></iframe>
+    </div>
+  </div>
+
+  <script>
+    // typing effect
+    const textList = [
+      "Civil Engineer",
+      "Remote Sensing Specialist",
+      "Hydrologist",
+      "GIS & Geospatial Analyst",
+      "Machine Learning Enthusiast"
+    ];
+
+    let textIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    const typingEl = document.getElementById("typing");
+
+    function typeEffect() {
+      const currentText = textList[textIndex];
+
+      if (!deleting) {
+        typingEl.textContent = currentText.slice(0, charIndex++);
+        if (charIndex > currentText.length) {
+          deleting = true;
+          setTimeout(typeEffect, 1200);
+          return;
+        }
+      } else {
+        typingEl.textContent = currentText.slice(0, charIndex--);
+        if (charIndex < 0) {
+          deleting = false;
+          textIndex = (textIndex + 1) % textList.length;
+        }
+      }
+
+      setTimeout(typeEffect, deleting ? 45 : 85);
+    }
+
+    typeEffect();
+
+    // reveal on scroll
+    const reveals = document.querySelectorAll(".reveal");
+
+    function revealOnScroll() {
+      reveals.forEach((el) => {
+        const top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+          el.classList.add("show");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+
+    // modal viewer
+    function openViewer(file) {
+      document.getElementById("viewerModal").style.display = "flex";
+      document.getElementById("docFrame").src = file + "#toolbar=0&navpanes=0&scrollbar=1";
+    }
+
+    function closeViewer() {
+      document.getElementById("viewerModal").style.display = "none";
+      document.getElementById("docFrame").src = "";
+    }
+
+    window.addEventListener("click", function (e) {
+      const modal = document.getElementById("viewerModal");
+      if (e.target === modal) {
+        closeViewer();
+      }
+    });
+
+    // disable right click
+    document.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
+    });
+
+    // disable some shortcuts
+    document.addEventListener("keydown", function(e) {
+      const key = e.key.toLowerCase();
+
+      if (
+        (e.ctrlKey && ["s", "p", "u"].includes(key)) ||
+        (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key)) ||
+        key === "f12" ||
+        key === "printscreen"
+      ) {
+        e.preventDefault();
+      }
+    });
+
+    // background particles
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2.5 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.8;
+        this.speedY = (Math.random() - 0.5) * 0.8;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x <= 0 || this.x >= canvas.width) this.speedX *= -1;
+        if (this.y <= 0 || this.y >= canvas.height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.45)";
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < 90; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.strokeStyle = "rgba(255,255,255,0.08)";
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+  </script>
 </body>
 </html>
